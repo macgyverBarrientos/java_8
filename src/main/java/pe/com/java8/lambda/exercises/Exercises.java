@@ -128,7 +128,6 @@ public class Exercises {
                 .filter(s -> s.toString().length()%2==1)
                 .collect(Collectors.toList());
         return result;
-        //assertEquals("[BRAVO, CHARLIE, DELTA, FOXTROT]", result.toString());
     }
     /* Hint 1:
      * Use filter() and map().
@@ -137,6 +136,73 @@ public class Exercises {
      * Use Use collect() to create the result list.
      */
 
+    /**
+     * Join the second letters of words 1 through 4 of the list (inclusive,
+     * counting from zero), separated by commas, into a single string.
+     */
+    public String ex07_joinStreamRange(List<String> inputList) {
 
+        String result = inputList.stream().
+                skip(1).
+                limit(4).map(a->a.charAt(1)+"").
+                collect(Collectors.joining(",")); // TODO
+        return result;
+    }
+    /* Hint 1:
+     * Use Stream.skip() and Stream.limit().
+     */
+    /* Hint 2:
+     * Use Use Collectors.joining().
+     */
+
+    /**
+     * Count the number of lines in the text file. (Remember to
+     * use the BufferedReader named "reader" that has already been
+     * opened for you.)
+     *
+     * @throws IOException
+     */
+    public long ex08_countLinesInFile( BufferedReader bufferedReader) throws IOException {
+        long count = bufferedReader.lines().count(); // TODO
+        return count;
+    }
+    /* Hint 1:
+     * Use BufferedReader.lines() to get a stream of lines.
+     */
+    /* Hint 2:
+     * Use Use Stream.count().
+     */
+
+    /**
+     * Find the length of the longest line in the text file.
+     *
+     * @throws IOException
+     */
+    public int ex09_findLengthOfLongestLine(BufferedReader inputReader) throws IOException {
+        int longestLength = inputReader.lines().mapToInt(a->a.length()).max().getAsInt(); // TODO
+        return longestLength;
+    }
+    /* Hint 1:
+     * Use Stream.mapToInt() to convert to IntStream.
+     */
+    /* Hint 2:
+     * Look at java.util.OptionalInt to get the result.
+     */
+
+    /**
+     * Find the longest line in the text file.
+     *
+     * @throws IOException
+     */
+    public String ex10_findLongestLine(BufferedReader inputReader) throws IOException {
+        String longest = inputReader.lines().max(Comparator.comparing(String::length)).get(); // TODO
+        return longest;
+    }
+    /* Hint 1:
+     * Use Stream.max() with a Comparator.
+     */
+    /* Hint 2:
+     * Use static methods on Comparator to help create a Comparator instance.
+     */
 }
 

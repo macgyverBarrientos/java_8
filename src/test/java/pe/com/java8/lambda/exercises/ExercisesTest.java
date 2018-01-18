@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -66,8 +67,8 @@ public class ExercisesTest {
      */
 
     // ========================================================
-// SIMPLE STREAM PIPELINES
-// ========================================================
+    // SIMPLE STREAM PIPELINES
+   // ========================================================
 
 
     /**
@@ -86,4 +87,77 @@ public class ExercisesTest {
     /* Hint 2:
      * Use Use collect() to create the result list.
      */
+
+    /**
+     * Join the second letters of words 1 through 4 of the list (inclusive,
+     * counting from zero), separated by commas, into a single string.
+     */
+    @Test
+    public void ex07_joinStreamRange() {
+        String result = exercises.ex07_joinStreamRange(dummyMock.inputListThree()); // TODO
+
+        Assert.assertEquals("r,h,e,c", result);
+    }
+    /* Hint 1:
+     * Use Stream.skip() and Stream.limit().
+     */
+    /* Hint 2:
+     * Use Use Collectors.joining().
+     */
+
+    /**
+     * Count the number of lines in the text file. (Remember to
+     * use the BufferedReader named "reader" that has already been
+     * opened for you.)
+     *
+     * @throws IOException
+     */
+    @Test
+    public void ex08_countLinesInFile() throws IOException {
+        long count = exercises.ex08_countLinesInFile(dummyMock.z_setUpBufferedReader());
+
+        Assert.assertEquals(14, count);
+    }
+    /* Hint 1:
+     * Use BufferedReader.lines() to get a stream of lines.
+     */
+    /* Hint 2:
+     * Use Use Stream.count().
+     */
+
+    /**
+     * Find the length of the longest line in the text file.
+     *
+     * @throws IOException
+     */
+    @Test
+    public void ex09_findLengthOfLongestLine() throws IOException {
+        int longestLength = exercises.ex09_findLengthOfLongestLine(dummyMock.z_setUpBufferedReader()); // TODO
+
+        Assert.assertEquals(53, longestLength);
+    }
+    /* Hint 1:
+     * Use Stream.mapToInt() to convert to IntStream.
+     */
+    /* Hint 2:
+     * Look at java.util.OptionalInt to get the result.
+     */
+
+    /**
+     * Find the longest line in the text file.
+     *
+     * @throws IOException
+     */
+    @Test
+    public void ex10_findLongestLine() throws IOException {
+        String longest = exercises.ex10_findLongestLine(dummyMock.z_setUpBufferedReader()); // TODO
+        Assert.assertEquals("Feed'st thy light's flame with self-substantial fuel,", longest);
+    }
+    /* Hint 1:
+     * Use Stream.max() with a Comparator.
+     */
+    /* Hint 2:
+     * Use static methods on Comparator to help create a Comparator instance.
+     */
+
 }

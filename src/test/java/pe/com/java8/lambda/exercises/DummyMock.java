@@ -1,5 +1,10 @@
 package pe.com.java8.lambda.exercises;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -8,7 +13,6 @@ import java.util.*;
  * @author Entelgy
  */
 public class DummyMock {
-
     public List<String> inputList(){
         List<String> input = new ArrayList<>();
         input.add("alfa");
@@ -46,5 +50,12 @@ public class DummyMock {
         input.put("b", 2);
         input.put("a", 1);
         return input;
+    }
+
+    public BufferedReader z_setUpBufferedReader() throws IOException {
+        BufferedReader inputFile;
+        inputFile = Files.newBufferedReader(
+                Paths.get("src\\test\\resources\\SonnetI.txt"), StandardCharsets.UTF_8);
+        return inputFile;
     }
 }
