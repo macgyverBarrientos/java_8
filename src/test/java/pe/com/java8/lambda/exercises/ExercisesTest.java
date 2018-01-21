@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * Created on 16/01/2018.
@@ -160,4 +161,92 @@ public class ExercisesTest {
      * Use static methods on Comparator to help create a Comparator instance.
      */
 
+    /**
+     * Select the set of words from the input list whose length is greater than
+     * to the word's position (starting from zero) in the list.
+     */
+    @Test
+    public void ex11_selectByLengthAndPosition() {
+
+        List<String> result = exercises.ex11_selectByLengthAndPosition(dummyMock.inputListFour());
+
+        Assert.assertEquals("[alfa, bravo, charlie, delta, foxtrot]", result.toString());
+    }
+    /* Hint:
+     * Instead of a stream of words (Strings), run an IntStream of positions.
+     */
+
+    /**
+     * Given two lists of Integer, compute a third list where each element is the
+     * difference between the corresponding elements of the two input lists
+     * (first minus second).
+     */
+    @Test
+    public void ex12_listDifference() {
+        List<Integer> result = exercises.ex12_listDifference(dummyMock.inputListIntegerOne(),dummyMock.inputListIntegerTwo()); // TODO
+        Assert.assertEquals("[1, -6, 3, -7, 3, 1, 1, -2, 3, -5]", result.toString());
+    }
+    /* Hint 1:
+     * Run an IntStream of list positions (indexes).
+     */
+    /* Hint 2:
+     * Deal with boxed Integers either by casting or by using mapToObj().
+     */
+
+    // ========================================================
+    // INTERMEDIATE STREAM PIPELINES
+    // ========================================================
+
+
+    /**
+     * Convert a list of strings into a list of characters.
+     */
+    @Test
+    public void ex13_stringsToCharacters() {
+
+        List<Character> result = exercises.ex13_stringsToCharacters(dummyMock.inputListFive());
+
+        Assert.assertEquals("[a, l, f, a, b, r, a, v, o, c, h, a, r, l, i, e]", result.toString());
+        Assert.assertTrue(result.stream().allMatch(x -> x instanceof Character));
+    }
+    /* Hint 1:
+     * Use Stream.flatMap().
+     */
+    /* Hint 2:
+     * Pay attention to the return type of String.chars() and boxing conversion.
+     */
+
+    /**
+     * Collect all the words from the text file into a list.
+     * Use String.split(REGEXP) to split a string into words.
+     * REGEXP is defined at the bottom of this file.
+     *
+     * @throws IOException
+     */
+    @Test
+    public void ex14_listOfAllWords() throws IOException {
+        final String regexp = "[- .:,]+"; // for splitting into words
+        List<String> output = exercises.ex14_listOfAllWords(dummyMock.z_setUpBufferedReader(),regexp);
+
+        Assert.assertEquals(
+                Arrays.asList(
+                        "From", "fairest", "creatures", "we", "desire", "increase",
+                        "That", "thereby", "beauty's", "rose", "might", "never", "die",
+                        "But", "as", "the", "riper", "should", "by", "time", "decease",
+                        "His", "tender", "heir", "might", "bear", "his", "memory",
+                        "But", "thou", "contracted", "to", "thine", "own", "bright", "eyes",
+                        "Feed'st", "thy", "light's", "flame", "with", "self", "substantial", "fuel",
+                        "Making", "a", "famine", "where", "abundance", "lies",
+                        "Thy", "self", "thy", "foe", "to", "thy", "sweet", "self", "too", "cruel",
+                        "Thou", "that", "art", "now", "the", "world's", "fresh", "ornament",
+                        "And", "only", "herald", "to", "the", "gaudy", "spring",
+                        "Within", "thine", "own", "bud", "buriest", "thy", "content",
+                        "And", "tender", "churl", "mak'st", "waste", "in", "niggarding",
+                        "Pity", "the", "world", "or", "else", "this", "glutton", "be",
+                        "To", "eat", "the", "world's", "due", "by", "the", "grave", "and", "thee"),
+                output);
+    }
+    /* Hint:
+     * Use Stream.flatMap().
+     */
 }

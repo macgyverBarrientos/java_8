@@ -58,4 +58,25 @@ public class DummyMock {
                 Paths.get("src\\test\\resources\\SonnetI.txt"), StandardCharsets.UTF_8);
         return inputFile;
     }
+
+    public List<String> inputListFour(){
+        List<String> input = new ArrayList<>(Arrays.asList(
+                "alfa", "bravo", "charlie", "delta", "echo", "foxtrot", "golf", "hotel"));
+        return input;
+    }
+
+    public List<Integer> inputListIntegerOne(){
+        List<Integer> one = Arrays.asList(3, 1, 4, 1, 5, 9, 2, 6, 5, 3);
+        return one;
+    }
+
+    public List<Integer> inputListIntegerTwo(){
+        List<Integer> two = Arrays.asList(2, 7, 1, 8, 2, 8, 1, 8, 2, 8);
+        return two;
+    }
+
+    public List<String> inputListFive(){
+        List<String> input = Arrays.asList("alfa", "bravo", "charlie");
+        return input;
+    }
 }

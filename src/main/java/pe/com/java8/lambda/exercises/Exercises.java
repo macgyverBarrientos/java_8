@@ -179,7 +179,7 @@ public class Exercises {
      * @throws IOException
      */
     public int ex09_findLengthOfLongestLine(BufferedReader inputReader) throws IOException {
-        int longestLength = inputReader.lines().mapToInt(a->a.length()).max().getAsInt(); // TODO
+        int longestLength = inputReader.lines().mapToInt(String::length).max().getAsInt(); // TODO
         return longestLength;
     }
     /* Hint 1:
@@ -203,6 +203,84 @@ public class Exercises {
      */
     /* Hint 2:
      * Use static methods on Comparator to help create a Comparator instance.
+     */
+
+    /**
+     * Select the set of words from the input list whose length is greater than
+     * to the word's position (starting from zero) in the list.
+     */
+    public List<String> ex11_selectByLengthAndPosition(List<String> inputList) {
+        List<String> result = IntStream.
+                range(0,inputList.size()).
+                filter(i->inputList.get(i).length()>i).
+                mapToObj(inputList::get).collect(Collectors.toList());
+
+        return result;
+    }
+    /* Hint:
+     * Instead of a stream of words (Strings), run an IntStream of positions.
+     */
+
+    /**
+     * Given two lists of Integer, compute a third list where each element is the
+     * difference between the corresponding elements of the two input lists
+     * (first minus second).
+     */
+    @Test
+    public List<Integer> ex12_listDifference(List<Integer> inputListOne, List<Integer> inputListTwo) {
+        List<Integer> result = IntStream
+                .range(0,inputListOne.size())
+                .mapToObj(i -> inputListOne.get(i) - inputListTwo.get(i))
+                .collect(Collectors.toList());
+        return result;
+    }
+    /* Hint 1:
+     * Run an IntStream of list positions (indexes).
+     */
+    /* Hint 2:
+     * Deal with boxed Integers either by casting or by using mapToObj().
+     */
+
+    // ========================================================
+// INTERMEDIATE STREAM PIPELINES
+// ========================================================
+
+
+    /**
+     * Convert a list of strings into a list of characters.
+     */
+    public List<Character> ex13_stringsToCharacters(List<String> inputList) {
+        List<Character> result = inputList
+                .stream()
+                .flatMap(x -> x.chars().mapToObj(c -> {
+                    return (char) c;
+                })).collect(Collectors.toList());
+        return result;
+    }
+    /* Hint 1:
+     * Use Stream.flatMap().
+     */
+    /* Hint 2:
+     * Pay attention to the return type of String.chars() and boxing conversion.
+     */
+
+    //static final String REGEXP = "[- .:,]+"; // for splitting into words
+    /**
+     * Collect all the words from the text file into a list.
+     * Use String.split(REGEXP) to split a string into words.
+     * REGEXP is defined at the bottom of this file.
+     *
+     * @throws IOException
+     */
+    public List<String> ex14_listOfAllWords(BufferedReader inputReader, String regexp) throws IOException {
+        List<String> output = inputReader
+                .lines().map(x->x.split(regexp))
+                .flatMap(Arrays::stream).collect(Collectors.toList());
+
+       return output;
+    }
+    /* Hint:
+     * Use Stream.flatMap().
      */
 }
 
