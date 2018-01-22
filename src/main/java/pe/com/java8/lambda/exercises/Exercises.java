@@ -24,6 +24,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.atomic.LongAdder;
 import java.util.function.IntConsumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -281,6 +282,89 @@ public class Exercises {
     }
     /* Hint:
      * Use Stream.flatMap().
+     */
+
+    /**
+     * Read the words from the text file, and create a list containing the words
+     * of length 8 or longer, converted to lower case, and sorted alphabetically.
+     *
+     * @throws IOException
+     */
+    public List<String> ex15_longLowerCaseSortedWords(BufferedReader inputReader, String regexp) throws IOException {
+        List<String> output = inputReader
+                .lines().map(x->x.split(regexp))
+                .flatMap(Arrays::stream).sorted().filter(c->c.length()>=8).collect(Collectors.toList());
+        return output;
+    }
+    /* Hint:
+     * Use Stream.sorted().
+     */
+
+    /**
+     * Read the words from the text file, and create a list containing the words
+     * of length 8 or longer, converted to lower case, and sorted reverse alphabetically.
+     * (Same as above except for reversed sort order.)
+     *
+     * @throws IOException
+     */
+    public List<String> ex16_longLowerCaseReverseSortedWords(BufferedReader inputReader, String regexp) throws IOException {
+        List<String> result =  inputReader
+                .lines().map(x->x.split(regexp))
+                .flatMap(Arrays::stream).filter(c->c.length()>=8).sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        return result;
+    }
+    /* Hint:
+     * Use Comparator.reverseOrder().
+     */
+
+    /**
+     * Read words from the text file, and sort unique, lower-cased words by length,
+     * then alphabetically within length, and place the result into an output list.
+     *
+     * @throws IOException
+     */
+    public List<String> ex17_sortedLowerCaseDistinctByLengthThenAlphabetically(BufferedReader inputReader, String regexp) throws IOException {
+        List<String> result = inputReader
+                .lines().map(x->x.split(regexp))
+                .flatMap(Arrays::stream)
+                .map(c->c.toLowerCase())
+                .distinct().sorted()
+                .sorted(Comparator.comparing(String::length))
+                .collect(Collectors.toList());
+        return result;
+    }
+    /* Hint 1:
+     * Use Stream.distinct().
+     */
+    /* Hint 2:
+     * Use Comparator.theComparing().
+     */
+
+    /**
+     * Count the total number of words and the number of distinct, lower case
+     * words in the text file, in one pass.
+     */
+    public List<Long> ex18_countTotalAndDistinctWords(BufferedReader inputReader, String regexp) {
+        LongAdder longAdder = new LongAdder();
+        long distinctCount=
+                inputReader
+                .lines().map(x->x.split(regexp))
+                .flatMap(Arrays::stream).peek(s -> longAdder.increment())
+                .map(String::toLowerCase)
+                .distinct()
+                .count();
+
+        long totalCount = longAdder.longValue();
+        List<Long> result = new ArrayList<>();
+        result.add(distinctCount);
+        result.add(totalCount);
+        return result;
+    }
+    /* Hint 1:
+     * Use Stream.peek().
+     */
+    /* Hint 2:
+     * Use LongAdder or AtomicLong/AtomicInteger to allow peek() to have side effects.
      */
 }
 

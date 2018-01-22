@@ -249,4 +249,102 @@ public class ExercisesTest {
     /* Hint:
      * Use Stream.flatMap().
      */
+
+    /**
+     * Read the words from the text file, and create a list containing the words
+     * of length 8 or longer, converted to lower case, and sorted alphabetically.
+     *
+     * @throws IOException
+     */
+    @Test
+    public void ex15_longLowerCaseSortedWords() throws IOException {
+        final String regexp = "[- .:,]+"; // for splitting into words
+        List<String> output = exercises.ex15_longLowerCaseSortedWords(dummyMock.z_setUpBufferedReader(),regexp) ;//
+
+        Assert.assertEquals(
+                Arrays.asList(
+                        "abundance", "beauty's", "contracted", "creatures",
+                        "increase", "niggarding", "ornament", "substantial"),
+                output);
+    }
+    /* Hint:
+     * Use Stream.sorted().
+     */
+
+    /**
+     * Read the words from the text file, and create a list containing the words
+     * of length 8 or longer, converted to lower case, and sorted reverse alphabetically.
+     * (Same as above except for reversed sort order.)
+     *
+     * @throws IOException
+     */
+    @Test
+    public void ex16_longLowerCaseReverseSortedWords() throws IOException {
+        final String regexp = "[- .:,]+"; // for splitting into words
+        List<String> result = exercises.ex16_longLowerCaseReverseSortedWords(dummyMock.z_setUpBufferedReader(),regexp);
+
+        Assert.assertEquals(
+                Arrays.asList(
+                        "substantial", "ornament", "niggarding", "increase",
+                        "creatures", "contracted", "beauty's", "abundance"),
+                result);
+    }
+    /* Hint:
+     * Use Comparator.reverseOrder().
+     */
+
+    /**
+     * Read words from the text file, and sort unique, lower-cased words by length,
+     * then alphabetically within length, and place the result into an output list.
+     *
+     * @throws IOException
+     */
+    @Test
+    public void ex17_sortedLowerCaseDistinctByLengthThenAlphabetically() throws IOException {
+        final String regexp = "[- .:,]+"; // for splitting into words
+        List<String> result = exercises.ex17_sortedLowerCaseDistinctByLengthThenAlphabetically(dummyMock.z_setUpBufferedReader(),regexp);
+        Assert.assertEquals(
+                Arrays.asList(
+                        "a", "as", "be", "by", "in", "or", "to", "we",
+                        "and", "art", "bud", "but", "die", "due", "eat", "foe",
+                        "his", "now", "own", "the", "thy", "too", "bear", "else",
+                        "eyes", "from", "fuel", "heir", "lies", "only",
+                        "pity", "rose", "self", "that", "thee", "this", "thou",
+                        "time", "with", "churl", "cruel", "flame", "fresh", "gaudy",
+                        "grave", "might", "never", "riper", "sweet", "thine",
+                        "waste", "where", "world", "bright", "desire", "famine",
+                        "herald", "mak'st", "making", "memory", "should", "spring",
+                        "tender", "within", "buriest", "content", "decease",
+                        "fairest", "feed'st", "glutton", "light's", "thereby", "world's", "beauty's",
+                        "increase", "ornament", "abundance", "creatures", "contracted", "niggarding",
+                        "substantial"),
+                result);
+    }
+    /* Hint 1:
+     * Use Stream.distinct().
+     */
+    /* Hint 2:
+     * Use Comparator.theComparing().
+     */
+
+    /**
+     * Count the total number of words and the number of distinct, lower case
+     * words in the text file, in one pass.
+     */
+    @Test
+    public void ex18_countTotalAndDistinctWords() throws IOException {
+        final String regexp = "[- .:,]+"; // for splitting into words
+        List<Long> result = exercises.ex18_countTotalAndDistinctWords(dummyMock.z_setUpBufferedReader(),regexp);
+        long distinctCount = result.get(0); // TODO
+        long totalCount = result.get(1); // TODO
+
+        Assert.assertEquals("distinct count", 81, distinctCount);
+        Assert.assertEquals("total count", 107, totalCount);
+    }
+    /* Hint 1:
+     * Use Stream.peek().
+     */
+    /* Hint 2:
+     * Use LongAdder or AtomicLong/AtomicInteger to allow peek() to have side effects.
+     */
 }
